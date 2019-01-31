@@ -27,6 +27,7 @@ DEBUG = True
 
 ALLOWED_HOSTS = [
     'iot.sinna.ir',
+    'sinna.ir',
     'localhost',
 ]
 
