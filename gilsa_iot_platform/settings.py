@@ -25,7 +25,10 @@ SECRET_KEY = '+yt1^4n0^0en%xtdncxtpcc2==qrxle_sir==q&!2w62uygxq-'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+    'iot.sinna.ir',
+    'localhost',
+]
 
 
 # Application definition
