@@ -7,6 +7,6 @@ import os
 import django
 from channels.routing import get_default_application
 
-os.environ.setdefault("DJANGO_SETTINGS_MODULE", "gilsa_iot_platform.settings")
+os.environ.setdefault("DJANGO_SETTINGS_MODULE", "gilsa-iot-platform.settings")
 django.setup()
 application = get_default_application()

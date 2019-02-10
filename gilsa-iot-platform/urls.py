@@ -1,4 +1,4 @@
-"""gilsa_iot_platform URL Configuration
+"""gilsa-iot-platform URL Configuration
 
 The `urlpatterns` list routes URLs to views. For more information please see:
     https://docs.djangoproject.com/en/2.1/topics/http/urls/
@@ -14,10 +14,21 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path
+from django.urls import path, include
 from iotdevice import views
+
+admin.site.site_header = 'Gilsa IoT Platform'
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('command/<str:device_id>/', views.command, name='command')
+    path('api-auth/', include('rest_framework.urls')),
+    path('command/<str:device_id>/', views.command, name='command'),
+]
+
+from .routers import api_v1_router
+
+urlpatterns += [
+    path('api/', include([
+        path('v1/', include(api_v1_router.urls)),
+    ]))
 ]
