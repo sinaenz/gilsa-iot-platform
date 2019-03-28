@@ -26,6 +26,8 @@ SECRET_KEY = '+yt1^4n0^0en%xtdncxtpcc2==qrxle_sir==q&!2w62uygxq-'
 DEBUG = True
 
 ALLOWED_HOSTS = [
+    'c3e097d9.ngrok.io',
+    'b1e3334e.ngrok.io',
     '127.0.0.1',
     'iot.sinna.ir',
     'sinna.ir',
@@ -36,9 +38,12 @@ ALLOWED_HOSTS = [
 # Application definition
 
 INSTALLED_APPS = [
+    'utils',
     'channels',
     'django_extensions',
+    'oauth2_provider',
     'rest_framework',
+    'iotauth.apps.IotauthConfig',
     'iotdevice',
     'iotsocket',
     'django.contrib.admin',
@@ -109,6 +114,7 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+AUTH_USER_MODEL = 'iotauth.User'
 
 # Internationalization
 # https://docs.djangoproject.com/en/2.1/topics/i18n/
@@ -129,6 +135,10 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
+MEDIA_URL = '/media/'
+
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
 # Channels
 ASGI_APPLICATION = 'gilsa-iot-platform.routing.application'
 
@@ -139,4 +149,11 @@ CHANNEL_LAYERS = {
             "hosts": [('127.0.0.1', 6379)],
         },
     },
+}
+
+# Django Rest Framework
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'oauth2_provider.contrib.rest_framework.OAuth2Authentication',
+    )
 }

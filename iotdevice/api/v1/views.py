@@ -1,10 +1,12 @@
+from rest_framework import exceptions
 from rest_framework import viewsets, mixins
+from rest_framework.decorators import action
 from rest_framework.response import Response
+
+from iotauth import permissions
 from . import serializers
 from ...models import Device
-from rest_framework.decorators import action
-from rest_framework import exceptions
-from iotauth import permissions
+
 
 class DeviceListViewSet(mixins.ListModelMixin, viewsets.GenericViewSet):
     queryset = Device.objects.all()
