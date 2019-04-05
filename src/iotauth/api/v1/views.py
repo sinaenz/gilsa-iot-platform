@@ -21,7 +21,7 @@ class UsersViewSet(mixins.CreateModelMixin, mixins.ListModelMixin, mixins.Retrie
 
     def get_permissions(self):
         self.permission_classes = []
-        if self.action in ['me', 'logout']:
+        if self.action in ['me', 'logout', 'change_password']:
             self.permission_classes = [permissions.IsAuthenticated]
         if self.action in ['list', 'retrieve']:
             self.permission_classes = [permissions.IsAdminUser]

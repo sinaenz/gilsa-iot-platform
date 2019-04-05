@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'django_extensions',
     'oauth2_provider',
     'rest_framework',
+    'iotclient',
     'iotauth.apps.IotauthConfig',
     'iotdevice',
     'iotsocket',
@@ -154,6 +155,8 @@ CHANNEL_LAYERS = {
 # Django Rest Framework
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework.authentication.BasicAuthentication',
+        'rest_framework.authentication.SessionAuthentication',
         'oauth2_provider.contrib.rest_framework.OAuth2Authentication',
     )
 }

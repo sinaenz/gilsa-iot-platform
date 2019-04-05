@@ -1,5 +1,8 @@
 from django.contrib import admin
-from .models import Home, Zone, DeviceType, Device, Command
+from .models import Home, Zone, DeviceType, Device, Command, DeviceCategory
+
+
+admin.site.register(DeviceCategory)
 
 
 class DeviceInline(admin.TabularInline):

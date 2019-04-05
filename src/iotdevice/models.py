@@ -37,6 +37,8 @@ class DeviceType(models.Model):
     code = models.CharField(_("Device Type Code"), max_length=50, blank=True, unique=True)
     # device type icon
     icon = models.ImageField(_("Icon"), upload_to='DeviceTypeIcons/%Y/%m/%d', default='DeviceTypeIcons/icon.png')
+    # firmware
+    latest_firmware = models.FileField(_("Firmware"), upload_to='FW/%Y/%m/%d', default='FW/icon.png')
     min_firmware_version = models.CharField(_("Device Type Minimum Firmware Version"), max_length=50, default='1.0.0')
 
     def image_tag(self):
@@ -55,6 +57,16 @@ class DeviceType(models.Model):
 # ===========================================================================
 # ============================== Device Model ===============================
 # ===========================================================================
+class DeviceCategory(models.Model):
+    name = models.CharField(_("Device Category Name"), max_length=50, default='Gilsa Device')
+
+    def __str__(self):
+        return self.name
+
+
+# ===========================================================================
+# ============================== Device Model ===============================
+# ===========================================================================
 class Device(models.Model):
     name = models.CharField(_("Device Name"), max_length=50, default='Gilsa Device')
     device_id = models.UUIDField(_("Device ID"), default=uuid.uuid4, unique=True)
@@ -63,6 +75,8 @@ class Device(models.Model):
     is_verified = models.BooleanField(_("Is Verified ?"), default=False)
     # device type
     device_type = models.ForeignKey(DeviceType, related_name='devices', null=True, on_delete=models.PROTECT)
+    # category
+    category = models.ForeignKey(DeviceCategory, related_name='devices', null=True, on_delete=models.PROTECT)
     # zone
     zone = models.ForeignKey(Zone, related_name='devices', blank=True, null=True, on_delete=models.SET_NULL)
     # home
