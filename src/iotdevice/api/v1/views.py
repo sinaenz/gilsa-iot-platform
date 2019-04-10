@@ -36,10 +36,18 @@ class DeviceViewSet(mixins.ListModelMixin, mixins.CreateModelMixin, viewsets.Gen
         serializer.save()
         return Response(serializer.data, status=200)
 
-    @action(detail=False, methods=['post'], name='verify device')
+    @action(detail=False, methods=['post'], name='update firmware')
     def firmware(self, request):
         """ request for firmware update """
         serializer = serializers.DeviceFirmwareSerializer(data=self.request.data)
+        serializer.is_valid(raise_exception=True)
+        serializer.save()
+        return Response(serializer.data, status=200)
+
+    @action(detail=False, methods=['post'], name='command device')
+    def command(self, request):
+        """ command a device """
+        serializer = serializers.DeviceCommandSerializer(data=self.request.data)
         serializer.is_valid(raise_exception=True)
         serializer.save()
         return Response(serializer.data, status=200)

@@ -41,7 +41,7 @@ class UsersViewSet(mixins.CreateModelMixin, mixins.ListModelMixin, mixins.Retrie
         serializer.save()
         return Response(serializer.data, status=200)
 
-    @action(detail=False, methods=['post'], name='resend sms verification')
+    @action(detail=False, methods=['post'], name='user resend sms verification')
     def resend(self, request, pk=None):
         """ user sms verification """
         serializer = serializers.UserResendSmsSerializer(data=self.request.data)
@@ -65,7 +65,7 @@ class UsersViewSet(mixins.CreateModelMixin, mixins.ListModelMixin, mixins.Retrie
         serializer.save()
         return Response(serializer.data, status=200)
 
-    @action(detail=False, methods=['post', 'put'], name='reset pass')
+    @action(detail=False, methods=['post', 'put'], name='user reset pass')
     def reset_password(self, request, pk=None):
         """ reset and recreate password """
         # reset password

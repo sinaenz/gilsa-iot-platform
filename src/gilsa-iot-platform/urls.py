@@ -16,7 +16,7 @@ Including another URLconf
 from django.conf import settings
 from django.contrib import admin
 from django.urls import path, include
-from iotdevice import views
+
 
 admin.site.site_header = 'Gilsa IoT Platform'
 
@@ -24,7 +24,6 @@ urlpatterns = [
     path('o/', include('oauth2_provider.urls', namespace='oauth2_provider')),
     path('admin/', admin.site.urls),
     path('api-auth/', include('rest_framework.urls')),
-    path('command/<str:device_id>/', views.command, name='command'),
 ]
 
 from .routers import api_v1_router

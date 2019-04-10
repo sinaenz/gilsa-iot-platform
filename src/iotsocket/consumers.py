@@ -1,8 +1,9 @@
 from channels.generic.websocket import WebsocketConsumer
 from iotdevice.models import Device
-from channels import exceptions
+
 
 class DeviceConsumer(WebsocketConsumer):
+
     def connect(self):
         self.device_id = self.scope['url_route']['kwargs']['device_id']
         try:
