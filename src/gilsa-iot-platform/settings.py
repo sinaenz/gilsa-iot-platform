@@ -26,6 +26,7 @@ SECRET_KEY = '+yt1^4n0^0en%xtdncxtpcc2==qrxle_sir==q&!2w62uygxq-'
 DEBUG = True
 
 ALLOWED_HOSTS = [
+    'gilsatech.com',
     'c3e097d9.ngrok.io',
     'b1e3334e.ngrok.io',
     '127.0.0.1',
