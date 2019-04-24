@@ -73,6 +73,8 @@ class Device(models.Model):
     channel_id = models.CharField(_("WebSocket Channel ID"), max_length=50, blank=True, null=True)
     is_connected = models.BooleanField(_("Is Connected ?"), default=False)
     is_verified = models.BooleanField(_("Is Verified ?"), default=False)
+    # status saved in JSON format
+    status = models.TextField(_("Status in Json Format"), blank=True, null=True)
     # device type
     device_type = models.ForeignKey(DeviceType, related_name='devices', null=True, on_delete=models.PROTECT)
     # category
