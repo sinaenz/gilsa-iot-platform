@@ -7,6 +7,7 @@ from django.core import serializers
 
 from iotauth import permissions
 from . import serializers
+from iotdevice.models import DeviceType
 
 
 class MobileViewSet(viewsets.ViewSet):
@@ -33,3 +34,8 @@ class MobileViewSet(viewsets.ViewSet):
             return Response(serializer.data['content'], status=200)
         return Response(serializer.data['content'], status=403)
 
+    @action(detail=False, methods=['get'], name='device types data')
+    def device_types(self, request):
+        """ get all device types """
+        serializer = serializers.DeviceTypeSerializer(DeviceType.objects.all(), many=True)
+        return Response(serializer.data, status=200)

@@ -24,8 +24,9 @@ class DeviceViewSet(mixins.ListModelMixin, mixins.CreateModelMixin, mixins.Retri
         self.permission_classes = []
         if self.action in ['me', 'logout']:
             self.permission_classes = [permissions.IsAuthenticated]
+            # TODO: should check is owner
         if self.action in ['list', 'retrieve']:
-            self.permission_classes = [permissions.IsAdminUser]
+            self.permission_classes = []
         return super().get_permissions()
 
     @action(detail=False, methods=['post'], name='verify device')

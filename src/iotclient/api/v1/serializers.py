@@ -15,6 +15,7 @@ class DeviceCategorySerializer(serializers.Serializer):
 class DeviceTypeSerializer(serializers.Serializer):
     name = serializers.CharField()
     icon = serializers.ImageField()
+    code = serializers.CharField()
     category = DeviceCategorySerializer()
 
 
@@ -27,15 +28,18 @@ class DeviceSerializer(serializers.Serializer):
 
 
 class ZoneSerializer(serializers.Serializer):
+    id = serializers.CharField()
     name = serializers.CharField()
     devices = DeviceSerializer(many=True)
 
 
 class HomeSerializer(serializers.Serializer):
+    id = serializers.CharField()
     name = serializers.CharField()
 
 
 class HomePageSerializer(serializers.Serializer):
+    id = serializers.CharField()
     name = serializers.CharField()
     zones = ZoneSerializer(many=True)
 

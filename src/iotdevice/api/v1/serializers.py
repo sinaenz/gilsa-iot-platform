@@ -18,7 +18,8 @@ class DeviceCreateSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Device
-        fields = ('name', 'device_type', 'zone', 'home')
+        fields = ('name', 'device_type', 'zone', 'home', 'device_id')
+        read_only_fields = ('device_id', )
 
     def create(self, validated_data):
         try:
@@ -78,6 +79,7 @@ class DeviceCommandSerializer(serializers.Serializer):
 
     def create(self, validated_data):
         try:
+            # TODO: check if device is connected
             channel_id = Device.objects.filter(is_verified=True).get(device_id=validated_data['device_id']).channel_id
             channel_layer = get_channel_layer()
             async_to_sync(channel_layer.send)(channel_id, {

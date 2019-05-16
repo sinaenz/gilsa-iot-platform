@@ -1,9 +1,9 @@
 {
 	"info": {
-		"_postman_id": "4f5bc740-5021-48b1-928e-6b30c370da71",
+		"_postman_id": "45ef135f-c4b9-4976-8a3a-33995f3bf8b1",
 		"name": "Gilsa IoT Platform",
 		"description": "# Introduction\nWhat does your API do?\n\n# Overview\nThings that the developers should know about\n\n# Authentication\nWhat is the preferred way of using the API?\n\n# Error Codes\nWhat errors and status codes can a user expect?\n\n# Rate limit\nIs there a limit to the number of requests an user can send?",
-		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
 	},
 	"item": [
 		{
@@ -25,18 +25,7 @@
 							"mode": "raw",
 							"raw": "{\r\n    \"phone\": \"09121111111\",\r\n    \"password\": \"qaz@123\",\r\n    \"full_name\": \"سینا ابراهیم نژاد\"\r\n}"
 						},
-						"url": {
-							"raw": "{{server_url}}/api/{{api_version}}/users/",
-							"host": [
-								"{{server_url}}"
-							],
-							"path": [
-								"api",
-								"{{api_version}}",
-								"users",
-								""
-							]
-						},
+						"url": "{{server_url}}/api/{{api_version}}/users/",
 						"description": "ساخت کاربر جدید"
 					},
 					"response": []
@@ -57,19 +46,7 @@
 							"mode": "raw",
 							"raw": "{\n\t\"phone\": \"09128199784\"\n}"
 						},
-						"url": {
-							"raw": "{{server_url}}/api/{{api_version}}/users/resend/",
-							"host": [
-								"{{server_url}}"
-							],
-							"path": [
-								"api",
-								"{{api_version}}",
-								"users",
-								"resend",
-								""
-							]
-						},
+						"url": "{{server_url}}/api/{{api_version}}/users/resend/",
 						"description": "ارسال مجدد اس ام اس"
 					},
 					"response": []
@@ -88,22 +65,10 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n\t\"phone\": \"09121111111\",\n\t\"code\": \"9655\"\n}"
+							"raw": "{\n\t\"phone\": \"09128199784\",\n\t\"code\": \"5414\",\n\t\"password\": \"qaz@123\"\n}"
 						},
-						"url": {
-							"raw": "{{server_url}}/api/{{api_version}}/users/verify/",
-							"host": [
-								"{{server_url}}"
-							],
-							"path": [
-								"api",
-								"{{api_version}}",
-								"users",
-								"verify",
-								""
-							]
-						},
-						"description": "وریفای کردن یوزر با اس ام اس"
+						"url": "{{server_url}}/api/{{api_version}}/users/verify/",
+						"description": "وریفای کردن یوزر با اس ام اس\n\nدر جواب توکن برمیگردد"
 					},
 					"response": []
 				},
@@ -123,19 +88,7 @@
 							"mode": "raw",
 							"raw": "{\n\t\"phone\": \"09121111111\",\n\t\"password\": \"123456\"\n}"
 						},
-						"url": {
-							"raw": "{{server_url}}/api/{{api_version}}/users/login/",
-							"host": [
-								"{{server_url}}"
-							],
-							"path": [
-								"api",
-								"{{api_version}}",
-								"users",
-								"login",
-								""
-							]
-						},
+						"url": "{{server_url}}/api/{{api_version}}/users/login/",
 						"description": "لاگین کردن یوزر"
 					},
 					"response": []
@@ -164,19 +117,7 @@
 							"mode": "raw",
 							"raw": ""
 						},
-						"url": {
-							"raw": "{{server_url}}/api/{{api_version}}/users/me/",
-							"host": [
-								"{{server_url}}"
-							],
-							"path": [
-								"api",
-								"{{api_version}}",
-								"users",
-								"me",
-								""
-							]
-						},
+						"url": "{{server_url}}/api/{{api_version}}/users/me/",
 						"description": "مشاهده اطلاعات یوزر"
 					},
 					"response": []
@@ -202,25 +143,13 @@
 							"mode": "raw",
 							"raw": ""
 						},
-						"url": {
-							"raw": "{{server_url}}/api/{{api_version}}/users/logout/",
-							"host": [
-								"{{server_url}}"
-							],
-							"path": [
-								"api",
-								"{{api_version}}",
-								"users",
-								"logout",
-								""
-							]
-						},
+						"url": "{{server_url}}/api/{{api_version}}/users/logout/",
 						"description": "لاگ اوت کردن یوزر"
 					},
 					"response": []
 				},
 				{
-					"name": "users/reset_password",
+					"name": "users/forgot_password",
 					"request": {
 						"method": "POST",
 						"header": [
@@ -233,21 +162,9 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n\t\"phone\": \"09121111111\"\n}"
+							"raw": "{\n\t\"phone\": \"09128199784\"\n}"
 						},
-						"url": {
-							"raw": "{{server_url}}/api/{{api_version}}/users/reset_password/",
-							"host": [
-								"{{server_url}}"
-							],
-							"path": [
-								"api",
-								"{{api_version}}",
-								"users",
-								"reset_password",
-								""
-							]
-						},
+						"url": "{{server_url}}/api/{{api_version}}/users/forgot_password/",
 						"description": "ریست کردن پسورد\nبعد از این مرحله یوزر باید مجددا وریفای کند"
 					},
 					"response": []
@@ -266,21 +183,9 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n\t\"phone\": \"09121111111\",\n\t\"new_pass\": \"qaz@123\"\n}"
+							"raw": "{\n\t\"phone\": \"09128199784\",\n\t\"new_pass\": \"qaz@123\"\n}"
 						},
-						"url": {
-							"raw": "{{server_url}}/api/{{api_version}}/users/reset_password/",
-							"host": [
-								"{{server_url}}"
-							],
-							"path": [
-								"api",
-								"{{api_version}}",
-								"users",
-								"reset_password",
-								""
-							]
-						},
+						"url": "{{server_url}}/api/{{api_version}}/users/forgot_password/",
 						"description": "ریست کردن پسورد\nدر این مرحله پسورد جدید انتخاب میکند\nکانفرم کردن پسورد باید سمت اپ انجام شود"
 					},
 					"response": []
@@ -306,20 +211,240 @@
 							"mode": "raw",
 							"raw": "{\n\t\"new_pass\": \"123\"\n}"
 						},
-						"url": {
-							"raw": "{{server_url}}/api/{{api_version}}/users/change_password/",
-							"host": [
-								"{{server_url}}"
-							],
-							"path": [
-								"api",
-								"{{api_version}}",
-								"users",
-								"change_password",
-								""
-							]
-						},
+						"url": "{{server_url}}/api/{{api_version}}/users/change_password/",
 						"description": "تغییر پسوورد در زمان لاگین بودن\nبعد از این درخواست نیازی به لاگین مجدد نیست"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "device",
+			"item": [
+				{
+					"name": "Create Device",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"type": "text",
+								"value": "Bearer {{access_token}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"name\":\"لوستر پذیرایی\" ,\n\t\"device_type\": \"TK2B\",\n\t\"zone\":\"1\",\n\t\"home\":\"1\"\n}"
+						},
+						"url": "{{server_url}}/api/{{api_version}}/devices/",
+						"description": "ساختن دیوایس\nبرای دیوایس تایپ حتما کد داده شود\nبرای زون یا هوم باید شماره آی دی آنها داده شود"
+					},
+					"response": []
+				},
+				{
+					"name": "Command a device",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"type": "text",
+								"value": "Bearer {{access_token}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"device_id\":\"2c5f5b9d9093495f8cabcad55f226294\" ,\n\t\"command_code\": \"1\",\n}"
+						},
+						"url": "{{server_url}}/api/{{api_version}}/devices/command/",
+						"description": "دستور دادن به یک دیوایس"
+					},
+					"response": []
+				},
+				{
+					"name": "device info",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"type": "text",
+								"value": "Bearer {{access_token}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"name\":\"لوستر پذیرایی\" ,\n\t\"device_type\": \"TK2B\",\n\t\"zone\":\"1\",\n\t\"home\":\"1\"\n}"
+						},
+						"url": "{{server_url}}/api/{{api_version}}/devices/2c5f5b9d9093495f8cabcad55f226294/",
+						"description": "گرفتن تمام اطلاعات مربوط به یک دیوایس مخصوصا فهمیدن این که وریفای شده یا نه\nکافیه دیوایس ای دی مد نظر رو ته یو ار ال قرار بدیم"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "home",
+			"item": [
+				{
+					"name": "Create Home",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{access_token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"name\":\"خانه ویلایی شمال\" \n}"
+						},
+						"url": "{{server_url}}/api/{{api_version}}/homes/",
+						"description": "یک خانه با اسم گفته شده برای یوزر میسازد"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "zone",
+			"item": [
+				{
+					"name": "Create Zone",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"type": "text",
+								"value": "Bearer {{access_token}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"name\":\"اتاق کودک\",\n\t\"home\":\"1\"\n}"
+						},
+						"url": "{{server_url}}/api/{{api_version}}/zones/",
+						"description": "یک اتاق در خانه با ای دی داده شده میسازد"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "mobile",
+			"item": [
+				{
+					"name": "home_page",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{access_token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": "{{server_url}}/api/{{api_version}}/mobile/",
+						"description": "تمامی اطلاعات صفحات اولیه اپلیکیشن"
+					},
+					"response": []
+				},
+				{
+					"name": "Splash",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"os\":\"Android\" \n}"
+						},
+						"url": "{{server_url}}/api/{{api_version}}/mobile/splash/",
+						"description": "اطلاعات اسپلش\nاگر توکن داشته باشد کد ۲۰۰ برمیگردونه اگر نه ۴۰۳\nاو اس باید یکی از این دوتا باشد\nAndroid, IOS"
+					},
+					"response": []
+				},
+				{
+					"name": "device_types",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"type": "text",
+								"value": "Bearer {{access_token}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": "{{server_url}}/api/{{api_version}}/mobile/device_types/",
+						"description": "گرفتن اطلاعات تمامی دیوایس تایپ ها"
 					},
 					"response": []
 				}
