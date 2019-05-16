@@ -23,3 +23,13 @@ class MobileViewSet(viewsets.ViewSet):
         homes = request.user.owned_homes.all()
         return Response(serializers.HomePageSerializer(homes, many=True).data)
 
+    @action(detail=False, methods=['post'], name='client os splash data')
+    def splash(self, request):
+        """ user splash """
+        serializer = serializers.SplashRequestSerializer(data=self.request.data, context={'user': request.user})
+        serializer.is_valid(raise_exception=True)
+        serializer.save()
+        if request.user.is_authenticated:
+            return Response(serializer.data['content'], status=200)
+        return Response(serializer.data['content'], status=403)
+

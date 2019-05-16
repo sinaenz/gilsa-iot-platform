@@ -65,12 +65,12 @@ class UsersViewSet(mixins.CreateModelMixin, mixins.ListModelMixin, mixins.Retrie
         serializer.save()
         return Response(serializer.data, status=200)
 
-    @action(detail=False, methods=['post', 'put'], name='user reset pass')
-    def reset_password(self, request, pk=None):
+    @action(detail=False, methods=['post', 'put'], name='user forgot pass')
+    def forgot_password(self, request, pk=None):
         """ reset and recreate password """
         # reset password
         if request.method == 'POST':
-            serializer = serializers.UserResetPasswordSerializer(data=self.request.data)
+            serializer = serializers.UserForgotPasswordSerializer(data=self.request.data)
             serializer.is_valid(raise_exception=True)
             serializer.save()
             return Response(serializer.data, status=200)

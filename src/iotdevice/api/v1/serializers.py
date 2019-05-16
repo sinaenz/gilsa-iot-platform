@@ -1,7 +1,7 @@
 from rest_framework import serializers
 
 from ... import exceptions
-from ...models import Device, Command
+from ...models import Device, Command, DeviceType, Home, Zone
 
 from channels.layers import get_channel_layer
 from asgiref.sync import async_to_sync
@@ -14,9 +14,21 @@ class DeviceListSerializer(serializers.ModelSerializer):
 
 
 class DeviceCreateSerializer(serializers.ModelSerializer):
+    device_type = serializers.CharField()
+
     class Meta:
         model = Device
-        fields = ('name', 'device_id')
+        fields = ('name', 'device_type', 'zone', 'home')
+
+    def create(self, validated_data):
+        try:
+            device_type = DeviceType.objects.get(code=validated_data.pop('device_type'))
+            device = Device.objects.create(**validated_data)
+            device.device_type = device_type
+            device.save()
+            return device
+        except:
+            raise exceptions.DeviceCreationFailed()
 
 
 class DeviceRetrieveSerializer(serializers.ModelSerializer):
@@ -78,3 +90,24 @@ class DeviceCommandSerializer(serializers.Serializer):
 
     def to_representation(self, instance):
         return instance
+
+
+class HomeCreateSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Home
+        fields = ('name', )
+
+    def create(self, validated_data):
+        home = Home.objects.create(**validated_data)
+        home.owner = self.context.get('user')
+        home.save()
+        return home
+
+
+class ZoneCreateSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Zone
+        fields = ('name', 'home')
+

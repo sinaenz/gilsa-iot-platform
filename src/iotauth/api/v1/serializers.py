@@ -35,16 +35,24 @@ class UserRetrieveSerializer(serializers.ModelSerializer):
 class UserVerificationSerializer(serializers.Serializer):
     phone = serializers.CharField(required=True)
     code = serializers.CharField(required=True)
+    password = serializers.CharField(required=True)
 
     def create(self, validated_data):
         phone = validated_data['phone']
         code = validated_data['code']
         try:
             user = User.objects.filter(is_verified=False).get(phone=phone, verification_code=code)
+            # login user automatically
             user.is_verified = True
             user.save()
+            if user.has_usable_password():
+                serializer = UserLoginSerializer(data=validated_data)
+                serializer.is_valid(raise_exception=True)
+                serializer.save()
+                return serializer.data
             return {'detail': 'تایید با موفقیت انجام شد'}
-        except:
+        except Exception as error:
+            print(error)
             raise exceptions.UserVerificationFailed()
 
     def to_representation(self, instance):
@@ -110,7 +118,7 @@ class UserLogoutSerializer(serializers.Serializer):
         return instance
 
 
-class UserResetPasswordSerializer(serializers.Serializer):
+class UserForgotPasswordSerializer(serializers.Serializer):
     phone = serializers.CharField(required=True)
 
     def create(self, validated_data):

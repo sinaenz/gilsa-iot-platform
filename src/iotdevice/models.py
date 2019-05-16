@@ -30,11 +30,23 @@ class Zone(models.Model):
 
 
 # ===========================================================================
+# ========================= Device Category Model ===========================
+# ===========================================================================
+class DeviceCategory(models.Model):
+    name = models.CharField(_("Device Category Name"), max_length=50, default='Gilsa Device')
+
+    def __str__(self):
+        return self.name
+
+
+# ===========================================================================
 # =========================== Device Type Model =============================
 # ===========================================================================
 class DeviceType(models.Model):
     name = models.CharField(_("Device Type Name"), max_length=50, default='Gilsa Device')
     code = models.CharField(_("Device Type Code"), max_length=50, blank=True, unique=True)
+    # category
+    category = models.ForeignKey(DeviceCategory, related_name='devices', null=True, on_delete=models.PROTECT)
     # device type icon
     icon = models.ImageField(_("Icon"), upload_to='DeviceTypeIcons/%Y/%m/%d', default='DeviceTypeIcons/icon.png')
     # firmware
@@ -57,16 +69,6 @@ class DeviceType(models.Model):
 # ===========================================================================
 # ============================== Device Model ===============================
 # ===========================================================================
-class DeviceCategory(models.Model):
-    name = models.CharField(_("Device Category Name"), max_length=50, default='Gilsa Device')
-
-    def __str__(self):
-        return self.name
-
-
-# ===========================================================================
-# ============================== Device Model ===============================
-# ===========================================================================
 class Device(models.Model):
     name = models.CharField(_("Device Name"), max_length=50, default='Gilsa Device')
     device_id = models.UUIDField(_("Device ID"), default=uuid.uuid4, unique=True)
@@ -77,8 +79,6 @@ class Device(models.Model):
     status = models.TextField(_("Status in Json Format"), blank=True, null=True)
     # device type
     device_type = models.ForeignKey(DeviceType, related_name='devices', null=True, on_delete=models.PROTECT)
-    # category
-    category = models.ForeignKey(DeviceCategory, related_name='devices', null=True, on_delete=models.PROTECT)
     # zone
     zone = models.ForeignKey(Zone, related_name='devices', blank=True, null=True, on_delete=models.SET_NULL)
     # home

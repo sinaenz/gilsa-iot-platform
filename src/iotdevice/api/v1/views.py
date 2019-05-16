@@ -5,10 +5,10 @@ from rest_framework.response import Response
 
 from iotauth import permissions
 from . import serializers
-from ...models import Device
+from ...models import Device, Zone
 
 
-class DeviceViewSet(mixins.ListModelMixin, mixins.CreateModelMixin, viewsets.GenericViewSet):
+class DeviceViewSet(mixins.ListModelMixin, mixins.CreateModelMixin, mixins.RetrieveModelMixin, viewsets.GenericViewSet):
     lookup_field = 'device_id'
     queryset = Device.objects.all()
 
@@ -51,3 +51,30 @@ class DeviceViewSet(mixins.ListModelMixin, mixins.CreateModelMixin, viewsets.Gen
         serializer.is_valid(raise_exception=True)
         serializer.save()
         return Response(serializer.data, status=200)
+
+
+class HomeViewSet(viewsets.ViewSet):
+    # TODO: fix it!
+    def get_permissions(self):
+        self.permission_classes = []
+        return super().get_permissions()
+
+    def create(self, request):
+        """ create home """
+        serializer = serializers.HomeCreateSerializer(data=request.data, context={'user': request.user})
+        serializer.is_valid(raise_exception=True)
+        serializer.save()
+        return Response(serializer.data, status=201)
+
+
+class ZoneViewSet(viewsets.ModelViewSet):
+    lookup_field = 'id'
+    queryset = Zone.objects.all()
+
+    # TODO: fix it!
+    def get_permissions(self):
+        self.permission_classes = []
+        return super().get_permissions()
+
+    serializer_class = serializers.ZoneCreateSerializer
+

@@ -1,4 +1,5 @@
 from rest_framework import serializers
+from utils.models import Splash
 
 
 class CommandSerializer(serializers.Serializer):
@@ -14,6 +15,7 @@ class DeviceCategorySerializer(serializers.Serializer):
 class DeviceTypeSerializer(serializers.Serializer):
     name = serializers.CharField()
     icon = serializers.ImageField()
+    category = DeviceCategorySerializer()
 
 
 class DeviceSerializer(serializers.Serializer):
@@ -22,7 +24,6 @@ class DeviceSerializer(serializers.Serializer):
     is_connected = serializers.BooleanField()
     is_verified = serializers.BooleanField()
     device_type = DeviceTypeSerializer()
-    category = DeviceCategorySerializer()
 
 
 class ZoneSerializer(serializers.Serializer):
@@ -37,3 +38,19 @@ class HomeSerializer(serializers.Serializer):
 class HomePageSerializer(serializers.Serializer):
     name = serializers.CharField()
     zones = ZoneSerializer(many=True)
+
+
+class SplashResponseSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Splash
+        exclude = ('id', 'os')
+
+
+class SplashRequestSerializer(serializers.Serializer):
+    os = serializers.CharField()
+
+    def create(self, validated_data):
+        return {'content': SplashResponseSerializer(Splash.objects.get(os=validated_data['os'])).data}
+
+    def to_representation(self, instance):
+        return instance
