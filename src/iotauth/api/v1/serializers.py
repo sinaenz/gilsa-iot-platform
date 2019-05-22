@@ -35,7 +35,7 @@ class UserRetrieveSerializer(serializers.ModelSerializer):
 class UserVerificationSerializer(serializers.Serializer):
     phone = serializers.CharField(required=True)
     code = serializers.CharField(required=True)
-    password = serializers.CharField(required=True)
+    password = serializers.CharField(required=False)
 
     def create(self, validated_data):
         phone = validated_data['phone']
@@ -49,7 +49,12 @@ class UserVerificationSerializer(serializers.Serializer):
                 serializer = UserLoginSerializer(data=validated_data)
                 serializer.is_valid(raise_exception=True)
                 serializer.save()
-                return serializer.data
+                return {'access_token': serializer.data['access_token'],
+                        'refresh_token': serializer.data['refresh_token'],
+                        'phone': user.phone,
+                        'full_name': user.full_name,
+                        }
+            # if user was requested to change password
             return {'detail': 'تایید با موفقیت انجام شد'}
         except Exception as error:
             print(error)
