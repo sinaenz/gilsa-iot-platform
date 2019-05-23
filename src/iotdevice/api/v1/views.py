@@ -5,6 +5,7 @@ from rest_framework.response import Response
 
 from iotauth import permissions
 from . import serializers
+from iotclient.api.v1.serializers import DeviceSerializer
 from ...models import Device, Zone
 
 
@@ -16,7 +17,7 @@ class DeviceViewSet(mixins.ListModelMixin, mixins.CreateModelMixin, mixins.Retri
         if self.action == 'create':
             return serializers.DeviceCreateSerializer
         if self.action == 'retrieve':
-            return serializers.DeviceRetrieveSerializer
+            return DeviceSerializer
         return serializers.DeviceListSerializer
 
     # TODO: fix it!
@@ -71,11 +72,10 @@ class HomeViewSet(viewsets.ViewSet):
 class ZoneViewSet(viewsets.ModelViewSet):
     lookup_field = 'id'
     queryset = Zone.objects.all()
+    serializer_class = serializers.ZoneCreateSerializer
 
     # TODO: fix it!
     def get_permissions(self):
         self.permission_classes = []
         return super().get_permissions()
-
-    serializer_class = serializers.ZoneCreateSerializer
 

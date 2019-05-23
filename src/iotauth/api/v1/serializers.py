@@ -1,4 +1,5 @@
 from rest_framework import serializers
+from rest_framework.response import Response
 from django.test import Client
 from oauth2_provider.models import Application, AccessToken, RefreshToken
 from ... import exceptions
@@ -11,16 +12,21 @@ class UserListSerializer(serializers.ModelSerializer):
         fields = ('phone', 'full_name')
 
 
-class UserCreateSerializer(serializers.ModelSerializer):
+class UserCreateSerializer(serializers.Serializer):
+    phone = serializers.CharField(required=True)
+    full_name = serializers.CharField(required=True)
     password = serializers.CharField(write_only=True, required=True)
 
-    class Meta:
-        model = User
-        fields = ('phone', 'password', 'full_name')
+    def validate_phone(self, value):
+        if User.objects.filter(phone=value, is_verified=False).exists():
+            raise exceptions.VerificationIsRequired()
+        if User.objects.filter(phone=value, is_verified=True).exists():
+            raise exceptions.UserAlreadyExist()
+        return value
 
     def create(self, validated_data):
         password = validated_data.pop('password')
-        instance = super().create(validated_data)
+        instance = User.objects.create(**validated_data)
         instance.set_password(password)
         instance.save()
         return instance
@@ -127,7 +133,7 @@ class UserForgotPasswordSerializer(serializers.Serializer):
     phone = serializers.CharField(required=True)
 
     def create(self, validated_data):
-        user = User.objects.filter(is_verified=True).get(phone=validated_data['phone'])
+        user = User.objects.get(phone=validated_data['phone'])
         AccessToken.objects.filter(user__phone=validated_data['phone']).delete()
         RefreshToken.objects.filter(user__phone=validated_data['phone']).delete()
         # set password unusable

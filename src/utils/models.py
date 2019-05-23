@@ -48,11 +48,12 @@ class KavenegarConfig(SingletonModel):
 # ============================== Splash Model ===============================
 # ===========================================================================
 class Splash(models.Model):
-    title = models.CharField(_('Config Name'), max_length=200, default='Splash')
-    latest_version = models.URLField(_('download link'), max_length=500, default='')
+    description = models.CharField(_('Config Name'), max_length=200, default='Splash')
+    latest_version = models.URLField(_('version link'), max_length=500, default='')
+    download_url = models.URLField(_('download link'), max_length=500, default='')
     os = models.CharField(_('OS Type'), max_length=200, default='Android')
     min_version = models.CharField(_('Minimum acceptable Version'), max_length=50, default='0.0.0')
 
     def __str__(self):
-        return self.title
+        return self.description
 

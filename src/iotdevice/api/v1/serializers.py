@@ -32,12 +32,6 @@ class DeviceCreateSerializer(serializers.ModelSerializer):
             raise exceptions.DeviceCreationFailed()
 
 
-class DeviceRetrieveSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Device
-        fields = '__all__'
-
-
 class DeviceVerificationSerializer(serializers.Serializer):
     device_id = serializers.UUIDField(required=True)
 
@@ -94,16 +88,19 @@ class DeviceCommandSerializer(serializers.Serializer):
         return instance
 
 
-class HomeCreateSerializer(serializers.ModelSerializer):
-
-    class Meta:
-        model = Home
-        fields = ('name', )
+class HomeCreateSerializer(serializers.Serializer):
+    name = serializers.CharField()
+    zone_name = serializers.CharField(write_only=True)
+    zone_type = serializers.IntegerField(write_only=True)
 
     def create(self, validated_data):
+        print(validated_data)
+        zone_name = validated_data.pop('zone_name')
+        zone_type = validated_data.pop('zone_type')
         home = Home.objects.create(**validated_data)
         home.owner = self.context.get('user')
         home.save()
+        zone = Zone.objects.create(name=zone_name, type=zone_type, home=home)
         return home
 
 
@@ -111,5 +108,5 @@ class ZoneCreateSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Zone
-        fields = ('name', 'home')
+        fields = '__all__'
 

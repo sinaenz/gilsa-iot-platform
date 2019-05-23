@@ -1,5 +1,6 @@
 from rest_framework import serializers
 from utils.models import Splash
+import json
 
 
 class CommandSerializer(serializers.Serializer):
@@ -10,6 +11,9 @@ class CommandSerializer(serializers.Serializer):
 
 class DeviceCategorySerializer(serializers.Serializer):
     name = serializers.CharField()
+
+    def to_representation(self, instance):
+        print(instance)
 
 
 class DeviceTypeSerializer(serializers.Serializer):
@@ -25,11 +29,18 @@ class DeviceSerializer(serializers.Serializer):
     is_connected = serializers.BooleanField()
     is_verified = serializers.BooleanField()
     device_type = DeviceTypeSerializer()
+    status = serializers.CharField()
+
+    def to_representation(self, instance):
+        instance = super().to_representation(instance)
+        instance['status'] = json.loads(instance['status'])
+        return instance
 
 
 class ZoneSerializer(serializers.Serializer):
     id = serializers.CharField()
     name = serializers.CharField()
+    type = serializers.IntegerField()
     devices = DeviceSerializer(many=True)
 
 

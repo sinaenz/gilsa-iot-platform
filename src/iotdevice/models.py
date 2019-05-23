@@ -21,9 +21,16 @@ class Home(models.Model):
 # =============================== Zone Model ================================
 # ===========================================================================
 class Zone(models.Model):
-    name = models.CharField(_("Zone Name"), max_length=50, default='No Name Zone')
+    name = models.CharField(_("Zone Name"), max_length=50, default='No Name Zone', blank=True)
     # home
     home = models.ForeignKey(Home, related_name='zones', blank=True, null=True, on_delete=models.SET_NULL)
+    ZONE_TYPE_CHOICES = (
+        (0, "پذیرایی"),
+        (1, "اتاق خواب"),
+        (2, "آشپزخانه"),
+        (3, "حمام"),
+    )
+    type = models.IntegerField(_("Zone Type"), choices=ZONE_TYPE_CHOICES, default=0, blank=True)
 
     def __str__(self):
         return self.name

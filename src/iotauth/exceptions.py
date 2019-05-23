@@ -2,6 +2,18 @@ from rest_framework import status
 from rest_framework.exceptions import APIException
 
 
+class UserAlreadyExist(APIException):
+    status_code = status.HTTP_400_BAD_REQUEST
+    default_detail = 'این شماره قبلا در سیستم ثبت شده است'
+    default_code = 'already_exist'
+
+
+class VerificationIsRequired(APIException):
+    status_code = status.HTTP_400_BAD_REQUEST
+    default_detail = 'verify'
+    default_code = 'verify'
+
+
 class UserVerificationFailed(APIException):
     status_code = status.HTTP_403_FORBIDDEN
     default_detail = 'کد وارد شده نادرست است'

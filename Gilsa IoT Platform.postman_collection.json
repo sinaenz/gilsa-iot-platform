@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "45ef135f-c4b9-4976-8a3a-33995f3bf8b1",
+		"_postman_id": "3d1f2043-2151-4640-95e0-d900027f1202",
 		"name": "Gilsa IoT Platform",
 		"description": "# Introduction\nWhat does your API do?\n\n# Overview\nThings that the developers should know about\n\n# Authentication\nWhat is the preferred way of using the API?\n\n# Error Codes\nWhat errors and status codes can a user expect?\n\n# Rate limit\nIs there a limit to the number of requests an user can send?",
 		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
@@ -65,7 +65,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n\t\"phone\": \"09128199784\",\n\t\"code\": \"5414\",\n\t\"password\": \"qaz@123\"\n}"
+							"raw": "{\n\t\"phone\": \"09121111111\",\n\t\"code\": \"9655\",\n\t\"password\": \"qaz@123\"\n}"
 						},
 						"url": "{{server_url}}/api/{{api_version}}/users/verify/",
 						"description": "وریفای کردن یوزر با اس ام اس\n\nدر جواب توکن برمیگردد"
@@ -86,7 +86,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n\t\"phone\": \"09121111111\",\n\t\"password\": \"123456\"\n}"
+							"raw": "{\n\t\"phone\": \"09128199784\",\n\t\"password\": \"qaz@123\"\n}"
 						},
 						"url": "{{server_url}}/api/{{api_version}}/users/login/",
 						"description": "لاگین کردن یوزر"
@@ -326,7 +326,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n\t\"name\":\"خانه ویلایی شمال\" \n}"
+							"raw": "{\n\t\"name\":\"خانه ویلایی شمال\",\n\t\"zone_name\": \"زون تست\",\n\t\"zone_type\": \"0\"\n}"
 						},
 						"url": "{{server_url}}/api/{{api_version}}/homes/",
 						"description": "یک خانه با اسم گفته شده برای یوزر میسازد"
@@ -357,7 +357,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n\t\"name\":\"اتاق کودک\",\n\t\"home\":\"1\"\n}"
+							"raw": "{\n\t\"name\":\"اتاق من\",\n\t\"home\":\"1\", \n\t\"type\":\"2\"\n}"
 						},
 						"url": "{{server_url}}/api/{{api_version}}/zones/",
 						"description": "یک اتاق در خانه با ای دی داده شده میسازد"

@@ -17,13 +17,13 @@ class ZoneInline(admin.TabularInline):
 
 @admin.register(Home)
 class HomeAdmin(admin.ModelAdmin):
-    list_display = ('name',)
+    list_display = ('name', 'owner')
     inlines = (ZoneInline, DeviceInline,)
 
 
 @admin.register(Zone)
 class ZoneAdmin(admin.ModelAdmin):
-    list_display = ('name', 'home')
+    list_display = ('name', 'home', 'type')
     inlines = (DeviceInline,)
 
 
