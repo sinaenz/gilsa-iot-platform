@@ -101,6 +101,7 @@ class UserLoginSerializer(serializers.Serializer):
     def create(self, validated_data):
         app = Application.objects.last()
         # TODO: Clear old tokens
+        user = User.objects.filter(is_verified=True).get(phone=validated_data['phone'])
         c = Client(SERVER_NAME='localhost:8000')
         response = c.post('http://127.0.0.1:8000/o/token/', data={
             'grant_type': 'password',
@@ -111,7 +112,11 @@ class UserLoginSerializer(serializers.Serializer):
         })
         if response.status_code == 400:
             raise exceptions.UserLoginFailed()
-        return response.json()
+        return {'access_token': response.json()['access_token'],
+                'refresh_token': response.json()['refresh_token'],
+                'phone': user.phone,
+                'full_name': user.full_name,
+                }
 
     def to_representation(self, instance: dict):
         return instance

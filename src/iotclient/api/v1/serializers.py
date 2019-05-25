@@ -11,9 +11,7 @@ class CommandSerializer(serializers.Serializer):
 
 class DeviceCategorySerializer(serializers.Serializer):
     name = serializers.CharField()
-
-    def to_representation(self, instance):
-        print(instance)
+    code = serializers.IntegerField()
 
 
 class DeviceTypeSerializer(serializers.Serializer):

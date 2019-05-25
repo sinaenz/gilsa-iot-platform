@@ -24,13 +24,7 @@ class Zone(models.Model):
     name = models.CharField(_("Zone Name"), max_length=50, default='No Name Zone', blank=True)
     # home
     home = models.ForeignKey(Home, related_name='zones', blank=True, null=True, on_delete=models.SET_NULL)
-    ZONE_TYPE_CHOICES = (
-        (0, "پذیرایی"),
-        (1, "اتاق خواب"),
-        (2, "آشپزخانه"),
-        (3, "حمام"),
-    )
-    type = models.IntegerField(_("Zone Type"), choices=ZONE_TYPE_CHOICES, default=0, blank=True)
+    type = models.IntegerField(_("Zone Type"), default=0, blank=True)
 
     def __str__(self):
         return self.name
@@ -41,6 +35,7 @@ class Zone(models.Model):
 # ===========================================================================
 class DeviceCategory(models.Model):
     name = models.CharField(_("Device Category Name"), max_length=50, default='Gilsa Device')
+    code = models.IntegerField(_("Device Category Code"), blank=True, null=True, unique=True)
 
     def __str__(self):
         return self.name
