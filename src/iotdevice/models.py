@@ -78,7 +78,7 @@ class Device(models.Model):
     is_connected = models.BooleanField(_("Is Connected ?"), default=False)
     is_verified = models.BooleanField(_("Is Verified ?"), default=False)
     # status saved in JSON format
-    status = models.TextField(_("Status in Json Format"), blank=True, null=True)
+    status = models.TextField(_("Status in Json Format"), blank=True, default='{"a":"b"}')
     # device type
     device_type = models.ForeignKey(DeviceType, related_name='devices', null=True, on_delete=models.PROTECT)
     # zone

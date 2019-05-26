@@ -31,7 +31,11 @@ class DeviceSerializer(serializers.Serializer):
 
     def to_representation(self, instance):
         instance = super().to_representation(instance)
-        instance['status'] = json.loads(instance['status'])
+        # TODO: Should be fixed!
+        try:
+            instance['status'] = json.loads(instance['status'])
+        except:
+            pass
         return instance
 
 
