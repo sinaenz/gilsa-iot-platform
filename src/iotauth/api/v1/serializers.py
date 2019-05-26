@@ -52,6 +52,8 @@ class UserVerificationSerializer(serializers.Serializer):
             user.is_verified = True
             user.save()
             if user.has_usable_password():
+                user.set_password(validated_data['password'])
+                user.save()
                 serializer = UserLoginSerializer(data=validated_data)
                 serializer.is_valid(raise_exception=True)
                 serializer.save()
