@@ -26,9 +26,12 @@ class DeviceConsumer(WebsocketConsumer):
             pass
 
     def disconnect(self, close_code):
-        self.device.channel_id = None
-        self.device.is_connected = False
-        self.device.save()
+        try:
+            self.device.channel_id = None
+            self.device.is_connected = False
+            self.device.save()
+        except:
+            pass
 
     def receive(self, text_data=None, bytes_data=None):
         text_data = json.loads(text_data)
