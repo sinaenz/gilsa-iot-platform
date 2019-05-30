@@ -14,6 +14,8 @@ class MobileViewSet(viewsets.ViewSet):
     # TODO: fix it!
     def get_permissions(self):
         self.permission_classes = [permissions.IsAuthenticated, ]
+        if self.action == 'splash':
+            self.permission_classes = []
         return super().get_permissions()
 
     def list(self, request):
