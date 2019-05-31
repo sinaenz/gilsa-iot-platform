@@ -140,14 +140,17 @@ class UserForgotPasswordSerializer(serializers.Serializer):
     phone = serializers.CharField(required=True)
 
     def create(self, validated_data):
-        user = User.objects.get(phone=validated_data['phone'])
-        AccessToken.objects.filter(user__phone=validated_data['phone']).delete()
-        RefreshToken.objects.filter(user__phone=validated_data['phone']).delete()
-        # set password unusable
-        user.set_unusable_password()
-        # send verification code
-        user.send_verification_sms()
-        return {'detail': 'کد تایید برای شما ارسال شد'}
+        try:
+            user = User.objects.get(phone=validated_data['phone'])
+            AccessToken.objects.filter(user__phone=validated_data['phone']).delete()
+            RefreshToken.objects.filter(user__phone=validated_data['phone']).delete()
+            # set password unusable
+            user.set_unusable_password()
+            # send verification code
+            user.send_verification_sms()
+            return {'detail': 'کد تایید برای شما ارسال شد'}
+        except:
+            raise exceptions.UserNotFound()
 
     def to_representation(self, instance: dict):
         return instance
