@@ -95,10 +95,15 @@ class Device(models.Model):
 # ===========================================================================
 class Command(models.Model):
     name = models.CharField(_("Command Name"), max_length=50, default='Gilsa Device')
-    code = models.CharField(_("Command Code"), max_length=50, blank=True, unique=True)
+    code = models.CharField(_("Command Code"), max_length=50, blank=True)
     content = models.CharField(_("Command Content"), max_length=500, blank=True, null=True)
     # device Type
     device_type = models.ForeignKey(DeviceType, related_name='commands', null=True, on_delete=models.PROTECT)
 
+    class Meta:
+        unique_together = ('code', 'device_type',)
+
     def __str__(self):
         return self.name
+
+

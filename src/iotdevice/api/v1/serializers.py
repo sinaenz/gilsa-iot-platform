@@ -74,11 +74,14 @@ class DeviceCommandSerializer(serializers.Serializer):
     def create(self, validated_data):
         try:
             # TODO: check if device is connected
-            channel_id = Device.objects.filter(is_verified=True).get(device_id=validated_data['device_id']).channel_id
+            device = Device.objects.filter(is_verified=True).get(device_id=validated_data['device_id'])
+            channel_id = device.channel_id
             channel_layer = get_channel_layer()
             async_to_sync(channel_layer.send)(channel_id, {
                 "type": "command.message",
-                "command": Command.objects.get(code=validated_data['command_code']).content,
+                "command": Command.objects.get(
+                    code=validated_data['command_code'],
+                    device_type=device.device_type).content,
             })
             return {'detail': 'command sent successfully'}
         except:

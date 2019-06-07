@@ -39,4 +39,5 @@ class DeviceAdmin(admin.ModelAdmin):
 
 @admin.register(Command)
 class CommandAdmin(admin.ModelAdmin):
-    pass
+    list_display = ('name', 'code', 'device_type')
+
