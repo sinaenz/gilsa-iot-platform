@@ -5,6 +5,7 @@ from ...models import Device, Command, DeviceType, Home, Zone
 
 from channels.layers import get_channel_layer
 from asgiref.sync import async_to_sync
+import json
 
 
 class DeviceListSerializer(serializers.ModelSerializer):
@@ -75,17 +76,31 @@ class DeviceCommandSerializer(serializers.Serializer):
         try:
             # TODO: check if device is connected
             device = Device.objects.filter(is_verified=True).get(device_id=validated_data['device_id'])
+        except:
+            raise exceptions.DeviceNotFound()
+        try:
             channel_id = device.channel_id
+            command = Command.objects.get(
+                    code=validated_data['command_code'],
+                    device_type=device.device_type)
             channel_layer = get_channel_layer()
             async_to_sync(channel_layer.send)(channel_id, {
                 "type": "command.message",
-                "command": Command.objects.get(
-                    code=validated_data['command_code'],
-                    device_type=device.device_type).content,
+                "command": command.content,
             })
+            # TODO: fix it (temporary update status)
+            status = json.loads(device.status)
+            content = json.loads(command.content)['content']
+            if content['bridge1'] != '2':
+                status['bridge1'] = content['bridge1']
+            if content['bridge2'] != '2':
+                status['bridge2'] = content['bridge2']
+            device.status = json.dumps(status)
+            device.save()
+
             return {'detail': 'command sent successfully'}
         except:
-            raise exceptions.DeviceNotFound()
+            raise exceptions.DeviceCommandExecutionFailure()
 
     def to_representation(self, instance):
         return instance

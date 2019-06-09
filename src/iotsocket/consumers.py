@@ -36,8 +36,11 @@ class DeviceConsumer(WebsocketConsumer):
     def receive(self, text_data=None, bytes_data=None):
         text_data = json.loads(text_data)
         # call corresponding method
-        getattr(self, Handlers[text_data['handler']])(text_data)
-        self.send(json.dumps({'status': 'ok', 'detail': 'received'}))
+        try:
+            getattr(self, Handlers[text_data['handler']])(text_data)
+            self.send(json.dumps({'status': 'ok', 'detail': 'received'}))
+        except:
+            print(text_data)
 
     def key_module(self, *args):
         self.device.status = json.dumps(args[0]['content'])
