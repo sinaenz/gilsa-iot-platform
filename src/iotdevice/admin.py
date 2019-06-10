@@ -29,7 +29,7 @@ class ZoneAdmin(admin.ModelAdmin):
 
 @admin.register(DeviceType)
 class DeviceTypeAdmin(admin.ModelAdmin):
-    list_display = ('image_tag', 'name', 'code')
+    list_display = ('image_tag', 'name', 'code', 'category')
 
 
 @admin.register(Device)

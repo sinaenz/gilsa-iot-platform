@@ -33,6 +33,7 @@ class Zone(models.Model):
 # ===========================================================================
 # ========================= Device Category Model ===========================
 # ===========================================================================
+# TODO: should have icon field
 class DeviceCategory(models.Model):
     name = models.CharField(_("Device Category Name"), max_length=50, default='Gilsa Device')
     code = models.IntegerField(_("Device Category Code"), blank=True, null=True, unique=True)
