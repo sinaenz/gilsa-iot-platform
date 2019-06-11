@@ -12,6 +12,7 @@ class CommandSerializer(serializers.Serializer):
 class DeviceCategorySerializer(serializers.Serializer):
     name = serializers.CharField()
     code = serializers.IntegerField()
+    icon = serializers.ImageField()
 
 
 class DeviceTypeSerializer(serializers.Serializer):
