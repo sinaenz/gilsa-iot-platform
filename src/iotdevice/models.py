@@ -33,10 +33,11 @@ class Zone(models.Model):
 # ===========================================================================
 # ========================= Device Category Model ===========================
 # ===========================================================================
-# TODO: should have icon field
 class DeviceCategory(models.Model):
     name = models.CharField(_("Device Category Name"), max_length=50, default='Gilsa Device')
     code = models.IntegerField(_("Device Category Code"), blank=True, null=True, unique=True)
+    # device category icon
+    icon = models.ImageField(_("Icon"), upload_to='DeviceCategoryIcons/%Y/%m/%d', default='DeviceCategoryIcons/icon.png')
 
     def __str__(self):
         return self.name
