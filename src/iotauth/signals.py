@@ -18,16 +18,16 @@ def send_verification_sms(sender, instance, **kwargs):
         instance.is_verified = False
         instance.verification_code = code
         instance.save()
-        # send sms async
+        # send sms
         try:
             api = kavenegar.KavenegarAPI(KavenegarConfig.load().api)
             params = {
                 'receptor': instance.phone,
                 'message': 'اپلیکیشن مستر اسمارت\nکد شما : {}'.format(code),
-                'sender': KavenegarConfig.load().sender
             }
             api.sms_send(params)
-        except:
-            pass
+        except Exception as error:
+            print(error)
+
     # todo: handle resend sms!
 
