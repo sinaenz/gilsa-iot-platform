@@ -6,15 +6,21 @@ services:
     image: redis
     ports:
       - "6379:6379"
+    networks:
+      - redisnet
   web:
     build: .
     restart: always
-    command: python manage.py runserver localhost:8000
+    command: python manage.py runserver 0.0.0.0:8000
     volumes:
       - .:/code
     environment:
       - REDIS_HOST=redis
     ports:
-      - "8000:8000"
+      - "80:8000"
     depends_on:
       - redis
+
+networks:
+  redisnet:
+    driver: bridge
